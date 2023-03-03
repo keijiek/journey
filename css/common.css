@@ -216,63 +216,20 @@ body, header, main, footer {
   text-decoration: none;
 }
 
-/* グローバルメニューの、小画面時の設定 */
-@media screen and (max-width: 760px) {
-  /* 小画面時は通常は不可視で、 */
-  .global_bar__global_menu {
-    display: none;
-  }
-  /* .js_open が付加されれば見える */
-  .global_bar__global_menu.js_open {
-    display: block;
-  }
-
-  /* ul, 小画面時 */
-  .global_menu__list {
-    flex-direction: column;
-  }
-  /* li, 小画面時 */
-  .global_menu__item {
-    /* 左ボーダーを消して上ボーダーに変える */
-    border-left: none;
-    border-top: 1px solid rgba(128,128,128,0.5);
-    /* 背景 */
-    background-color: rgba(255,255,255,0.5);
-    /* サイズ変更 */
-    width: 200px;
-  }
-  /* li, 最終要素 */
-  .global_menu__item:last-child {
-    /* 右ボーダーを消して下ボーダー */
-    border-right: none;
-    border-bottom: 1px solid rgba(128,128,128,0.5);
-  }
-  /* <a> */
-  .global_menu__anchor {
-    padding: 0.5rem;
-    width: 100%;
-  }
-}
 
 /* ************************************************************************************************************************************
   ハンバーガーメメニュー、(ハンバーガーアイコンではなく)
 */
 .humburger_menu {
-  /* 原則として不可視。js のみでこれを操作 */
+  /* 原則として不可視。js でこれを操作 */
   display: block;
   /* absolute 配置 */
   position: absolute;
   top: 0;
   /* ハンバーガーアイコンの幅だけ右端から離す */
   right: 48px;
-  /* 重なり優先度。ロゴより高く、ハンバーガーアイコンより低く。 */
+  /* 重なり優先度。ロゴ(11)より高く、ハンバーガーアイコン(15)より低く。 */
   z-index: 13;
-}
-/* 小画面、かつ js_open が付いた時のみ、可視化 */
-@media screen and (max-width: 760px) {
-  .humburger_menu.js_open {
-    /* display: block; */
-  }
 }
 
 /* li */
@@ -328,7 +285,7 @@ body, header, main, footer {
   right: 0;
   /* カーソル形状を指さし方に */
   cursor: pointer;
-  /* 重なり優先度 */
+  /* 重なり優先度, ロゴ(11)よりも、ハンバーガーメニュー(13)よりも高く */
   z-index: 15;
 }
 /* ハンバーガー・ラップは、小画面時に可視化 */
@@ -349,7 +306,7 @@ body, header, main, footer {
 .humburger_icon {
   /* 内部の線を絶対配置するため */
   position: relative;
-  /* サイズ, これを書き換える場合、ハンバーガーメニュー(.humburger_menu)の right の値も書き換えた方がよい */
+  /* サイズ, これを書き換える場合、ハンバーガーメニュー(.humburger_menu)の right の値や、.global_bar の height や、それに属する要素の height も書き換えた方がよい */
   width: 48px;
   height: 48px;
   /* 背景色 */
