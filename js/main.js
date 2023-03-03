@@ -191,8 +191,8 @@ window.addEventListener('DOMContentLoaded',()=>{
   // ScrollReveal 関数が読み込まれている場合のみ実行させる。
   if(typeof ScrollReveal == 'function') {
     ScrollReveal().reveal('.jssr_common', {
-      duration: 1600,
-      distance: '10%',
+      duration: 2000,
+      distance: '5%',
       viewFactor: 0.3
     });
     ScrollReveal().reveal('.jssr_left', {
@@ -202,7 +202,7 @@ window.addEventListener('DOMContentLoaded',()=>{
       origin: 'right',
     });
     ScrollReveal().reveal('.jssr_delay', {
-      delay: 200
+      delay: 400
     })
   }
 })
