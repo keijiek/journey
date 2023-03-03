@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>journey</title>
+
+  <!-- css module loading -->
+  <link rel="stylesheet" href="css/modules/ress.min.css">
+  <link rel="stylesheet" href="css/modules/animate.min.css">
+  <link rel="stylesheet" href="css/modules/animate_custom_delay.css">
+  <!-- custom css loading -->
+  <link rel="stylesheet" href="css/common.css">
+
+  <!-- loading myown script -->
+  <script src="js/main.js" defer></script>
+  <!-- loading ScrollReveal.js, スクロールでフェードインする機能のため -->
+  <!-- <script src="https://unpkg.com/scrollreveal"></script> -->
+</head>
+
+<body>
+  <header class="header">
+    <div class="header_inner_wrap header_relative_container">
+
+      <!-- グローバルバー -->
+      <section class="global_bar">
+        
+        <!-- ロゴ -->
+        <h1 class="global_bar__global_logo animate__animated animate__fadeInDown">
+          <a class="global_log__anchor" href="./index.html">
+            <img class="global_logo__image" src="https://placehold.jp/200x200.png" alt="">
+          </a>
+        </h1>
+        
+        <!-- グローバルメニュー -->
+        <nav class="global_bar__global_menu" id="js_humbruger_menu">
+          <ul class="global_menu__list">
+            <li class="global_menu__item animate__animated animate__fadeInDown animate__delay-005s"><a class="global_menu__anchor" href="#">CREATIVE</a></li>
+            <li class="global_menu__item animate__animated animate__fadeInDown animate__delay-010s"><a class="global_menu__anchor" href="#">SPORTS</a></li>
+            <li class="global_menu__item animate__animated animate__fadeInDown animate__delay-015s"><a class="global_menu__anchor" href="#">ENTERTAINMENT</a></li>
+            <li class="global_menu__item animate__animated animate__fadeInDown animate__delay-020s"><a class="global_menu__anchor" href="#">FOOD</a></li>
+            <li class="global_menu__item animate__animated animate__fadeInDown animate__delay-025s"><a class="global_menu__anchor" href="#">MANAGEMENT</a></li>
+            <li class="global_menu__item animate__animated animate__fadeInDown animate__delay-030s"><a class="global_menu__anchor" href="#">COMPANY</a></li>
+            <li class="global_menu__item animate__animated animate__fadeInDown animate__delay-035s"><a class="global_menu__anchor" href="#">CONTACT</a></li>
+          </ul>
+        </nav>
+        
+        <!-- ハンバーガーアイコン -->
+        <div class="humburger_icon__wrap animate__animated animate__fadeInRight animate__fast" id="js_humburger_icon__clickable_area">
+          <div class="humburger_icon">
+            <!-- 三本線 -->
+            <span class="humburger_icon__line"></span>
+            <span class="humburger_icon__line"></span>
+            <span class="humburger_icon__line"></span>
+          </div>
+          <p>menu</p>
+        </div>
+        
+
+      </section><!-- .global_bar 終端 -->
+
+      <!-- メインビジュアル -->
+      <div class="header__main_visual animate__animated animate__fadeIn animate__slower">
+        <img src="https://placehold.jp/1920x700.png" alt="">
+      </div>
+
+      <!-- キーフレーズ -->
+      <div class="header__key_phrase">
+        <div class="animate__animated animate__fadeInLeft animate__slow animate__delay-050s">
+          <span>The&nbsp;</span><span>journey&nbsp;</span><span>is&nbsp;</span><span>the&nbsp;</span><span>reward.</span>
+        </div>
+        <div class="animate__animated animate__fadeInLeft animate__slower animate__delay-050s">
+          <span>Not</span>
+          <span>the&nbsp;destination.</span>
+        </div>
+        <div class="animate__animated animate__fadeInLeft animate__slow animate__delay-100s">
+          <span>旅そのものが</span><span>報酬だ。</span>
+        </div>
+        <div class="animate__animated animate__fadeInLeft animate__slower animate__delay-100s">目的地ではない。</div>
+      </div>
+    </div><!-- .header_inner_wrap 終端 -->
+  </header>
+
+  <main>
+    <div class="main_inner_wrap">
+
+      <!-- ダミーセクション -->
+      <section style="width:100%; height: 200vh; border: 1px solid black;">
+        <h2>ダミー</h2>
+        <p>スクロールしたらどう見えるかを確認するためのダミーセクションです。<br>スタイルはこの文字列の親要素(section)のstyleプロパティに書かれています。いらなくなったらsectionごと消してください。</p>
+      </section>
+
+      <!-- ギャラリー -->
+      <section>
+
+      </section>
+    </div>
+  </main>
+
+  <footer></footer>
+</body>
+</html>

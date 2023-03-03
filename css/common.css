@@ -1,0 +1,369 @@
+@charset "UTF-8";
+/*
+# クラス名について
+次に挙げるプレフィックス(接頭辞)が付いた class や id は、JavaScriot からも参照しているクラス名です。
+それが使われているセレクタや、その中に書かれた設定を変更すると js が正常に動かない可能性があります。
+逆に、そうでないものは、class 名も、設定の内容も、自由に変更して大丈夫なはずです。
+
+- js_
+- jssr_
+
+*/
+
+
+/* ************************************************************************************************************************************
+  Base.
+  HTML Element そのものに基礎的な設定を与える。reset.css に追加したい設定を。
+*/
+
+body, header, main, footer {
+  width: 100%;
+}
+
+
+/* ************************************************************************************************************************************
+  全ページ共通のスタイル
+*/
+/* header, main, footer には直下に inner_wrap を入れる */
+.header_inner_wrap {
+  max-width: 1920px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.main_inner_wrap,
+.footer_inner_wrap {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ************************************************************************************************************************************
+  <header>の内容物のスタイル
+************************************************************************************************************************************ */
+.header_flex_container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+/* キーフレーズの position: absolute; を効かせるため */
+.header_relative_container {
+  width: 100%;
+  position: relative;
+}
+
+
+/* ************************************************************************************************************************************
+  グローバルバー(ロゴ, メニュー)
+*/
+.global_bar {
+  /* 表示場所の固定 */
+  position: fixed;
+  /* y座標は上端に固定 */
+  top: 0;
+  /* x座標は、次のどちらかが適用されていればよい */
+  left: calc(1/2 * calc(100vw - 1200px));
+  right: calc(1/2 * calc(100vw - 1200px));
+  /* 重なり優先度 */
+  z-index: 10;
+
+  /* flex, ロゴとメニューを左右に分けるため */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* 大きさ */
+  max-width: 1200px;
+  width: 100%;
+  height: 48px;
+  /* 中央寄せ。適用されるが、意味は無さそう */
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* 1200px を下まわる場合、横方向の表示位置をコンテンツ幅(1200px)に合わせる。 */
+@media screen and (max-width: 1200px) {
+  .global_bar {
+    /* 次のどちらかが適用されていればよい。 */
+    left: 0;
+    right: 0;
+  }
+}
+
+/* グローバルバー、小画面時 */
+@media screen and (max-width:760px) {
+  .global_bar {
+    /* height: 48px; */
+  }
+}
+
+/* ************************************************************************************************************************************
+  ロゴ 
+*/
+/* ロゴのラップdiv */
+.global_bar__global_logo {
+  /* 重なりの設定 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* 重なり優先度。グローバルメニューより低くなるように */
+  z-index: 11;
+  /* サイズ。内側の a がこれに対して100%になる。画像の大きさに応じて変える */
+  width: 200px;
+  height: 100%;
+  /* 確認用ボーダー。いらなくなったら消す */
+  border: 1px dotted black ;
+}
+@media screen and (max-width: 760px) {
+  /* 小画面時、ロゴラップdivの幅を小さく */
+  .global_bar__global_logo {
+    width: 120px;
+  }
+}
+/* ロゴの<a> */
+.global_logo__anchor {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+/* ロゴのimg */
+.global_logo__image {
+  object-fit: none ;
+  width: 100%;
+  height: 100%;
+}
+
+/* ************************************************************************************************************************************
+  グローバルメニュ (大画面時)
+*/
+.global_bar__global_menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  /* 重なり優先度、ロゴより高く、ハンバーガーアイコンより低く */
+  z-index: 12;
+}
+/* グローバルメニューのリスト部分<ul>。flex。ハンバーガー時は、これを縦方向に変える */
+.global_menu__list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/* グローバルメニューの<li>, 黒丸を外し、右方向にマージン */
+.global_menu__item {
+  list-style: none;
+  margin-right: 1rem;
+}
+.global_menu__item:last-child {
+  margin-right: 0;
+}
+
+/*
+  グローバルメニューの<a>
+*/
+/* <a>、基礎 */
+.global_menu__anchor {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+/* 見え方の変化に時間をかける */
+.global_menu__anchor {
+  transition: all 0.2s linear 0s;
+  -webkit-transition: all 0.2s linear 0s;
+  -moz-transition: all 0.2s linear 0s;
+  -ms-transition: all 0.2s linear 0s;
+  -o-transition: all 0.2s linear 0s;
+}
+/* <a>の文字色や見た目 */
+.global_menu__anchor:link,
+.global_menu__anchor:visited {
+  color: black;
+  text-decoration: none;
+}
+.global_menu__anchor:hover,
+.global_menu__anchor:active {
+  color: brown;
+  text-decoration: none;
+}
+
+/* グローバルメニューの、小画面時の設定 */
+@media screen and (max-width: 760px) {
+  /* 小画面時は通常は不可視で、 */
+  .global_bar__global_menu {
+    display: none;
+    /* ハンバーガーアイコンのサイズ分だけ座標を左にずらす */
+    right: 48px;
+  }
+  /* .open が付加されれば見える */
+  .global_bar__global_menu.open {
+    display: block;
+  }
+
+  .global_menu__list {
+    flex-direction: column;
+  }
+}
+
+/* ************************************************************************************************************************************
+  ハンバーガーアイコン
+*/
+/* ハンバーガーのラップ */
+.humburger_icon__wrap {
+  /* 普段は不可視。小画面時に可視化 */
+  display: none;
+  /* 表示位置固定 */
+  position: fixed;
+  top: 0;
+  right: 0;
+  /* カーソル形状を指さし方に */
+  cursor: pointer;
+  /* 重なり優先度 */
+  z-index: 15;
+}
+/* ハンバーガー・ラップは、小画面時に可視化 */
+@media screen and (max-width: 760px) {
+  .humburger_icon__wrap {
+    display: block;
+  }
+}
+
+/* ハンバーガーアイコンの下の文字 */
+.humburger_icon__wrap > p {
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+/* ハンバーガーのアイコン自体 */
+.humburger_icon {
+  /* 内部の線を絶対配置するため */
+  position: relative;
+  /* サイズ */
+  width: 48px;
+  height: 48px;
+  /* 色 */
+  background-color: blue;
+}
+/* ハンバーガーのアイコン自体、角を丸める */
+.humburger_icon {
+  border-radius: 5%;
+  -webkit-border-radius: 5%;
+  -moz-border-radius: 5%;
+  -ms-border-radius: 5%;
+  -o-border-radius: 5%;
+}
+
+
+/*
+  ハンバーガーの線
+*/
+:root {
+  /* ハンバーガーの線の太さ */
+  --hambruger-thickness: 4px;
+}
+.humburger_icon__line {
+  display: block;
+  /* 絶対配置 */
+  position: absolute;
+  left: 10%;
+  /* サイズ */
+  height: var(--hambruger-thickness);
+  width: 80%;
+  /* 色 */
+  background-color: white;
+}
+/* 線の角を丸める */
+.humburger_icon__line {
+  border-radius: calc(0.5 * var(--hambruger-thickness));
+  -webkit-border-radius: calc(0.5 * var(--hambruger-thickness));
+  -moz-border-radius: calc(0.5 * var(--hambruger-thickness));
+  -ms-border-radius: calc(0.5 * var(--hambruger-thickness));
+  -o-border-radius: calc(0.5 * var(--hambruger-thickness));
+}
+/* 線の変形に時間をかけさせる */
+.humburger_icon__line {
+  transition: all 0.5s ease 0s;
+  -webkit-transition: all 0.5s ease 0s;
+  -moz-transition: all 0.5s ease 0s;
+  -ms-transition: all 0.5s ease 0s;
+  -o-transition: all 0.5s ease 0s;
+}
+/* 1本目の線の位置 */
+.humburger_icon__line:nth-child(1) {
+  top: calc(20%);
+}
+/* オープン時 */
+.humburger_icon__line.js_open:nth-child(1) {
+  top: 50%;
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+  -moz-transform: rotate(-135deg);
+  -ms-transform: rotate(-135deg);
+  -o-transform: rotate(-135deg);
+}
+
+/* 2本目 */
+.humburger_icon__line:nth-child(2) {
+  top: calc(50% - var(--hambruger-thickness)/2);
+}
+/* オープン時 */
+.humburger_icon__line.js_open:nth-child(2) {
+  opacity: 0;
+}
+
+/* 3本目 */
+.humburger_icon__line:nth-child(3) {
+  top: calc(80% - var(--hambruger-thickness));
+}
+/* オープン時 */
+.humburger_icon__line.js_open:nth-child(3) {
+  top: 50%;
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  -moz-transform: rotate(135deg);
+  -ms-transform: rotate(135deg);
+  -o-transform: rotate(135deg);
+}
+
+/* ************************************************************************************************************************************
+  メインビジュアル
+*/
+/* メインビジュアルのdiv */
+.header__main_visual {
+  width: 100%;
+  height: 700px;
+}
+/* メインビジュアル、実際の画像 */
+.header__main_visual > img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+@media screen and (max-width: 760px) {
+  .header__main_visual {
+    height: 400px;
+  }
+}
+
+
+/* ************************************************************************************************************************************
+  キーフレーズ
+*/
+.header__key_phrase {
+  /* 位置 */
+  position: absolute;
+  bottom: 0;
+  left: 2%;
+  /* 文字 */
+  font-size: 3rem;
+  font-weight: 600;
+}
+.header__key_phrase > div:nth-child(3), 
+.header__key_phrase > div:nth-child(4) {
+  font-weight: normal;
+}
+@media screen and (max-width: 760px) {
+  .header__key_phrase {
+    font-size: 1.6rem;
+  }
+}
