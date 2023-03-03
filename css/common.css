@@ -4,9 +4,15 @@
 次に挙げるプレフィックス(接頭辞)が付いた class や id は、JavaScriot からも参照しているクラス名です。
 それが使われているセレクタや、その中に書かれた設定を変更すると js が正常に動かない可能性があります。
 逆に、そうでないものは、class 名も、設定の内容も、自由に変更して大丈夫なはずです。
+ハンバーガーアイコンにも js_ がついていますが、見た目の変更ていどなら大丈夫なはずです。
 
 - js_
 - jssr_
+
+# ブレイクポイント(760px)を変更する場合
+次の二つの手順を踏み、数値を合わせなければなりません。
+・このファイルの、"@media screen and (max-width: 760px) {}" と書かれている*全て*の箇所の "760" を、変えたい値に書き換える。
+・main.js の、175行あたりの、ARGMENTS オブジェクト内の "BREAK_POINT: 760" の "760" を、上で変更したのと同じ値に書き換える。
 
 */
 
@@ -104,7 +110,7 @@ body, header, main, footer {
   position: absolute;
   top: 0;
   left: 0;
-  /* 重なり優先度。グローバルメニューより低くなるように */
+  /* 重なり優先度。重要なのは、グローバルメニューより低くし、メニューのクリックを邪魔しないこと */
   z-index: 11;
   /* サイズ。内側の a がこれに対して100%になる。画像の大きさに応じて変える */
   width: 200px;
@@ -112,10 +118,10 @@ body, header, main, footer {
   /* 確認用ボーダー。いらなくなったら消す */
   border: 1px dotted black ;
 }
+/* 小画面時のロゴ */
 @media screen and (max-width: 760px) {
-  /* 小画面時、ロゴラップdivの幅を小さく */
   .global_bar__global_logo {
-    width: 120px;
+    /* width: 120px; */
   }
 }
 /* ロゴの<a> */
@@ -126,35 +132,52 @@ body, header, main, footer {
 }
 /* ロゴのimg */
 .global_logo__image {
-  object-fit: none ;
+  object-fit: cover ;
   width: 100%;
   height: 100%;
 }
 
 /* ************************************************************************************************************************************
-  グローバルメニュ (大画面時)
+  グローバルメニュー (大画面時)
 */
 .global_bar__global_menu {
+  /* 大画面では可視 */
+  display: block;
+  /* absolute 配置, 位置 */
   position: absolute;
   top: 0;
   right: 0;
-  /* 重なり優先度、ロゴより高く、ハンバーガーアイコンより低く */
+  /* 重なり優先度。ロゴより高くすること。 */
   z-index: 12;
 }
-/* グローバルメニューのリスト部分<ul>。flex。ハンバーガー時は、これを縦方向に変える */
+/* 小画面では不可視 */
+@media screen and (max-width: 760px) {
+  .global_bar__global_menu {
+    display: none;
+  }
+}
+
+/* グローバルメニューのリスト部分<ul>。flex */
 .global_menu__list {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-/* グローバルメニューの<li>, 黒丸を外し、右方向にマージン */
+/* グローバルメニューの<li> */
 .global_menu__item {
+  /* 黒丸を消す */
   list-style: none;
-  margin-right: 1rem;
+  /* 左にボーダー */
+  border-left:  1px solid saddlebrown;
+  /* 内容物(<a>)をこの要素いっぱいにするのためのflexボックス化 */
+  display: flex;
+  /* 内容物(<a>)は、この高さいっぱいに広がる */
+  height: 48px;
 }
+/* 最終要素だけは右にもボーダー */
 .global_menu__item:last-child {
-  margin-right: 0;
+  border-right: 1px solid saddlebrown;
 }
 
 /*
@@ -162,11 +185,19 @@ body, header, main, footer {
 */
 /* <a>、基礎 */
 .global_menu__anchor {
-  display: block;
-  width: 100%;
-  height: 100%;
+  /*
+    a タグの内容物(テキスト)を中央化する処理。
+    1. flex ボックス化し、方向(flex-direction)をy軸方向(column)に指定。
+    2. justify-content:center; で、flexの方向軸と交差する軸(=x軸)の方向に中央配置することを指定。
+  */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* 左右に内部の余白 */
+  padding-right: 8px;
+  padding-left: 8px;
 }
-/* 見え方の変化に時間をかける */
+/* 見え方の変化に時間をかける transition 設定。 */
 .global_menu__anchor {
   transition: all 0.2s linear 0s;
   -webkit-transition: all 0.2s linear 0s;
@@ -182,7 +213,7 @@ body, header, main, footer {
 }
 .global_menu__anchor:hover,
 .global_menu__anchor:active {
-  color: brown;
+  color: saddlebrown;
   text-decoration: none;
 }
 
@@ -191,18 +222,99 @@ body, header, main, footer {
   /* 小画面時は通常は不可視で、 */
   .global_bar__global_menu {
     display: none;
-    /* ハンバーガーアイコンのサイズ分だけ座標を左にずらす */
-    right: 48px;
   }
-  /* .open が付加されれば見える */
-  .global_bar__global_menu.open {
+  /* .js_open が付加されれば見える */
+  .global_bar__global_menu.js_open {
     display: block;
   }
 
+  /* ul, 小画面時 */
   .global_menu__list {
     flex-direction: column;
   }
+  /* li, 小画面時 */
+  .global_menu__item {
+    /* 左ボーダーを消して上ボーダーに変える */
+    border-left: none;
+    border-top: 1px solid rgba(128,128,128,0.5);
+    /* 背景 */
+    background-color: rgba(255,255,255,0.5);
+    /* サイズ変更 */
+    width: 200px;
+  }
+  /* li, 最終要素 */
+  .global_menu__item:last-child {
+    /* 右ボーダーを消して下ボーダー */
+    border-right: none;
+    border-bottom: 1px solid rgba(128,128,128,0.5);
+  }
+  /* <a> */
+  .global_menu__anchor {
+    padding: 0.5rem;
+    width: 100%;
+  }
 }
+
+/* ************************************************************************************************************************************
+  ハンバーガーメメニュー、(ハンバーガーアイコンではなく)
+*/
+.humburger_menu {
+  /* 原則として不可視。js のみでこれを操作 */
+  display: block;
+  /* absolute 配置 */
+  position: absolute;
+  top: 0;
+  /* ハンバーガーアイコンの幅だけ右端から離す */
+  right: 48px;
+  /* 重なり優先度。ロゴより高く、ハンバーガーアイコンより低く。 */
+  z-index: 13;
+}
+/* 小画面、かつ js_open が付いた時のみ、可視化 */
+@media screen and (max-width: 760px) {
+  .humburger_menu.js_open {
+    /* display: block; */
+  }
+}
+
+/* li */
+.humburger_menu__item {
+  /* 黒丸を消す */
+  list-style: none;
+  /* 上にボーダー */
+  border-top:  1px solid saddlebrown;
+  /* 内容物(<a>)をこの要素いっぱいにするのためのflexボックス化 */
+  display: flex;
+  /* 内容物(<a>)は、このサイズいっぱいに広がる */
+  height: 32px;
+  width: 180px;
+  /* 背景色 */
+  background-color: rgba(255,255,255,0.7);
+}
+/* 最終 li には下ボーダー */
+.humburger_menu__item:last-child {
+  border-bottom: 1px solid saddlebrown;
+}
+
+.humburger_menu__anchor {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+}
+.humburger_menu__anchor:link,
+.humburger_menu__anchor:visited {
+  color: black;
+  text-decoration: none;
+}
+.humburger_menu__anchor:hover,
+.humburger_menu__anchor:active {
+  color: saddlebrown;
+  text-decoration: none;
+}
+
+
+
 
 /* ************************************************************************************************************************************
   ハンバーガーアイコン
@@ -241,10 +353,12 @@ body, header, main, footer {
   /* サイズ */
   width: 48px;
   height: 48px;
-  /* 色 */
-  background-color: blue;
+  /* 背景色 */
+  background-color: white;
+  /* ボーダー色 */
+  border: 1px solid saddlebrown;
 }
-/* ハンバーガーのアイコン自体、角を丸める */
+/* ハンバーガーのアイコン形状、角を丸める */
 .humburger_icon {
   border-radius: 5%;
   -webkit-border-radius: 5%;
@@ -261,7 +375,7 @@ body, header, main, footer {
   /* ハンバーガーの線の太さ */
   --hambruger-thickness: 4px;
 }
-.humburger_icon__line {
+.js_humburger_icon__line {
   display: block;
   /* 絶対配置 */
   position: absolute;
@@ -270,10 +384,10 @@ body, header, main, footer {
   height: var(--hambruger-thickness);
   width: 80%;
   /* 色 */
-  background-color: white;
+  background-color: saddlebrown;
 }
 /* 線の角を丸める */
-.humburger_icon__line {
+.js_humburger_icon__line {
   border-radius: calc(0.5 * var(--hambruger-thickness));
   -webkit-border-radius: calc(0.5 * var(--hambruger-thickness));
   -moz-border-radius: calc(0.5 * var(--hambruger-thickness));
@@ -281,49 +395,51 @@ body, header, main, footer {
   -o-border-radius: calc(0.5 * var(--hambruger-thickness));
 }
 /* 線の変形に時間をかけさせる */
-.humburger_icon__line {
+.js_humburger_icon__line {
   transition: all 0.5s ease 0s;
   -webkit-transition: all 0.5s ease 0s;
   -moz-transition: all 0.5s ease 0s;
   -ms-transition: all 0.5s ease 0s;
   -o-transition: all 0.5s ease 0s;
 }
+
 /* 1本目の線の位置 */
-.humburger_icon__line:nth-child(1) {
+.js_humburger_icon__line:nth-child(1) {
   top: calc(20%);
 }
-/* オープン時 */
-.humburger_icon__line.js_open:nth-child(1) {
+/* オープン時の変形 */
+.js_humburger_icon__line.js_open:nth-child(1) {
   top: 50%;
-  transform: rotate(-135deg);
-  -webkit-transform: rotate(-135deg);
-  -moz-transform: rotate(-135deg);
-  -ms-transform: rotate(-135deg);
-  -o-transform: rotate(-135deg);
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
 }
 
 /* 2本目 */
-.humburger_icon__line:nth-child(2) {
+.js_humburger_icon__line:nth-child(2) {
   top: calc(50% - var(--hambruger-thickness)/2);
 }
-/* オープン時 */
-.humburger_icon__line.js_open:nth-child(2) {
+/* オープン時の変形 */
+.js_humburger_icon__line.js_open:nth-child(2) {
   opacity: 0;
 }
 
 /* 3本目 */
-.humburger_icon__line:nth-child(3) {
+.js_humburger_icon__line:nth-child(3) {
   top: calc(80% - var(--hambruger-thickness));
 }
-/* オープン時 */
-.humburger_icon__line.js_open:nth-child(3) {
+/* オープン時の変形 */
+.js_humburger_icon__line.js_open:nth-child(3) {
   top: 50%;
-  transform: rotate(135deg);
-  -webkit-transform: rotate(135deg);
-  -moz-transform: rotate(135deg);
-  -ms-transform: rotate(135deg);
-  -o-transform: rotate(135deg);
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
 }
+
 
 /* ************************************************************************************************************************************
   メインビジュアル
@@ -339,9 +455,10 @@ body, header, main, footer {
   width: 100%;
   height: 100%;
 }
+/* 小画面時の変化 */
 @media screen and (max-width: 760px) {
   .header__main_visual {
-    height: 400px;
+    /* height: 400px; */
   }
 }
 
@@ -350,20 +467,110 @@ body, header, main, footer {
   キーフレーズ
 */
 .header__key_phrase {
-  /* 位置 */
+  /* absolute 設定と位置 */
   position: absolute;
   bottom: 0;
   left: 2%;
-  /* 文字 */
+
+}
+.header__key_phrase > div.english_phrase {
   font-size: 3rem;
   font-weight: 600;
 }
-.header__key_phrase > div:nth-child(3), 
-.header__key_phrase > div:nth-child(4) {
-  font-weight: normal;
+.header__key_phrase > div.japanese_phrase {
+  font-size: 3rem;
+  font-weight: 500;
 }
+
 @media screen and (max-width: 760px) {
-  .header__key_phrase {
+  .header__key_phrase > div.english_phrase {
     font-size: 1.6rem;
   }
+  .header__key_phrase > div.japanese_phrase {
+    font-size: 1.6rem;
+  }
+}
+@media screen and (max-width: 400px) {
+  .header__key_phrase > div.english_phrase {
+    font-size: 1.4rem;
+  }
+  .header__key_phrase > div.japanese_phrase {
+    font-size: 1.4rem;
+  }
+}
+
+
+/* ************************************************************************************************************************************
+  ギャラリー
+
+************************************************************************************************************************************ */
+/* ギャラリー全体 */
+.top_page_gallery {
+  width: 100%;
+  max-width: 1200px;
+  margin-right: auto;
+  margin-left: auto;
+  /* 確認用のボーダー。後で消す */
+  /* border: 1px dotted #333; */
+}
+/* ギャラリー全体の見出し */
+.top_page_gallery__head {
+  font-size: 2rem;
+  text-align: center;
+}
+
+/* ************************************************************************************************************************************
+  ギャラリーのパネル
+*/
+/* パネル共通 */
+.gallery_panel {
+  width: 100%;
+  display: flex;
+  margin-bottom: 2%;
+}
+
+/* 中央・1枚のパネル*/
+.gp__middle_single {
+  justify-content: center;
+}
+/* 左寄せ・2枚のパネル */
+.gp__left_aligned {
+  justify-content: flex-start;/* 規定値なので不要だが、右寄せとの対比のために */
+}
+/* 右寄せ・2枚のパネル */
+.gp__right_aligned {
+  justify-content: flex-end;
+}
+
+
+/* img ラップ, 共通 */
+.gp__img_wrap {
+  display: block;
+}
+/* img ラップ, 中央寄せの場合 */
+.gp__middle_single > .gp__img_wrap {
+  width: 80%;
+}
+/* img のラップ, 左右寄せの場合 */
+.gp__left_aligned > .gp__img_wrap,
+.gp__right_aligned > .gp__img_wrap {
+  width: 44%;
+}
+.gp__left_aligned > .gp__img_wrap:first-child,
+.gp__right_aligned > .gp__img_wrap:first-child {
+  margin-right: 2%;
+}
+
+/* img_wrap が<a>の場合 */
+a.gp__img_wrap:link,
+a.gp__img_wrap:visited {
+}
+a.gp__img_wrap:hover,
+a.gp__img_wrap:active {
+}
+
+.gp__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }

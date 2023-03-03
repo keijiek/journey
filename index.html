@@ -15,7 +15,7 @@
   <!-- loading myown script -->
   <script src="js/main.js" defer></script>
   <!-- loading ScrollReveal.js, スクロールでフェードインする機能のため -->
-  <!-- <script src="https://unpkg.com/scrollreveal"></script> -->
+  <script src="https://unpkg.com/scrollreveal"></script>
 </head>
 
 <body>
@@ -33,9 +33,9 @@
         </h1>
         
         <!-- グローバルメニュー -->
-        <nav class="global_bar__global_menu" id="js_humbruger_menu">
+        <nav class="global_bar__global_menu">
           <ul class="global_menu__list">
-            <li class="global_menu__item animate__animated animate__fadeInDown animate__delay-005s"><a class="global_menu__anchor" href="#">CREATIVE</a></li>
+            <li class="global_menu__item animate__animated animate__fadeInDown animate__delay-005s"><a class="global_menu__anchor" href="./">CREATIVE</a></li>
             <li class="global_menu__item animate__animated animate__fadeInDown animate__delay-010s"><a class="global_menu__anchor" href="#">SPORTS</a></li>
             <li class="global_menu__item animate__animated animate__fadeInDown animate__delay-015s"><a class="global_menu__anchor" href="#">ENTERTAINMENT</a></li>
             <li class="global_menu__item animate__animated animate__fadeInDown animate__delay-020s"><a class="global_menu__anchor" href="#">FOOD</a></li>
@@ -46,16 +46,28 @@
         </nav>
         
         <!-- ハンバーガーアイコン -->
-        <div class="humburger_icon__wrap animate__animated animate__fadeInRight animate__fast" id="js_humburger_icon__clickable_area">
+        <div class="humburger_icon__wrap animate__animated animate__fadeInDown animate__fast" id="js_humburger_icon__clickable_area">
           <div class="humburger_icon">
             <!-- 三本線 -->
-            <span class="humburger_icon__line"></span>
-            <span class="humburger_icon__line"></span>
-            <span class="humburger_icon__line"></span>
+            <span class="js_humburger_icon__line"></span>
+            <span class="js_humburger_icon__line"></span>
+            <span class="js_humburger_icon__line"></span>
           </div>
           <p>menu</p>
         </div>
-        
+
+        <!-- ハンバーガーメニュー。 アイコンで開閉される-->
+        <div class="humburger_menu" id="js_humburger_menu">
+          <ul class="humburger_menu__list">
+            <li class="humburger_menu__item js_humburger_menu__item animate__animated animate__delay-005s"><a class="humburger_menu__anchor" href="./">CREATIVE</a></li>
+            <li class="humburger_menu__item js_humburger_menu__item animate__animated animate__delay-010s"><a class="humburger_menu__anchor" href="#">SPORTS</a></li>
+            <li class="humburger_menu__item js_humburger_menu__item animate__animated animate__delay-015s"><a class="humburger_menu__anchor" href="#">ENTERTAINMENT</a></li>
+            <li class="humburger_menu__item js_humburger_menu__item animate__animated animate__delay-020s"><a class="humburger_menu__anchor" href="#">FOOD</a></li>
+            <li class="humburger_menu__item js_humburger_menu__item animate__animated animate__delay-025s"><a class="humburger_menu__anchor" href="#">MANAGEMENT</a></li>
+            <li class="humburger_menu__item js_humburger_menu__item animate__animated animate__delay-030s"><a class="humburger_menu__anchor" href="#">COMPANY</a></li>
+            <li class="humburger_menu__item js_humburger_menu__item animate__animated animate__delay-035s"><a class="humburger_menu__anchor" href="#">CONTACT</a></li>
+          </ul>
+        </div>
 
       </section><!-- .global_bar 終端 -->
 
@@ -66,34 +78,110 @@
 
       <!-- キーフレーズ -->
       <div class="header__key_phrase">
-        <div class="animate__animated animate__fadeInLeft animate__slow animate__delay-050s">
-          <span>The&nbsp;</span><span>journey&nbsp;</span><span>is&nbsp;</span><span>the&nbsp;</span><span>reward.</span>
-        </div>
-        <div class="animate__animated animate__fadeInLeft animate__slower animate__delay-050s">
-          <span>Not</span>
-          <span>the&nbsp;destination.</span>
-        </div>
-        <div class="animate__animated animate__fadeInLeft animate__slow animate__delay-100s">
-          <span>旅そのものが</span><span>報酬だ。</span>
-        </div>
-        <div class="animate__animated animate__fadeInLeft animate__slower animate__delay-100s">目的地ではない。</div>
+        <div class="english_phrase  animate__animated animate__fadeInLeft animate__slow animate__delay-050s">The journey is the reward.</div>
+        <div class="english_phrase  animate__animated animate__fadeInLeft animate__slower animate__delay-050s">Not the destination.</div>
+        <div class="japanese_phrase animate__animated animate__fadeInLeft animate__slow animate__delay-100s">旅そのものが報酬だ。</div>
+        <div class="japanese_phrase animate__animated animate__fadeInLeft animate__slower animate__delay-100s">目的地ではない。</div>
       </div>
+
     </div><!-- .header_inner_wrap 終端 -->
   </header>
 
   <main>
     <div class="main_inner_wrap">
 
+      
       <!-- ダミーセクション -->
-      <section style="width:100%; height: 200vh; border: 1px solid black;">
+      <section style="width:100%; height: 100vh; border: 1px dotted black;">
         <h2>ダミー</h2>
         <p>スクロールしたらどう見えるかを確認するためのダミーセクションです。<br>スタイルはこの文字列の親要素(section)のstyleプロパティに書かれています。いらなくなったらsectionごと消してください。</p>
       </section>
 
-      <!-- ギャラリー -->
-      <section>
+
+      <!-- ギャラリーの大枠, Element の種類は article でも section でも div でもよい -->
+      <section class="top_page_gallery" id="top_page_gallery">
+        <h2 class="top_page_gallery__head">NEW&nbsp;WORKS</h2>
+
+        <!-- 
+          ツリー構造A (右寄せか左寄せで2枚を表示するパネル):
+
+          div.gallery_panel .gp__left_aligned または .gp__right_aligned
+            |_ a.gp__img_wrap または div.gp__img_wrap
+                |_ img.gp__img
+            |- a.gp__img_wrap または div.gp__img_wrap
+              |- img.gp__img
+          
+          ツリー構造B (中央に1枚のみ表示するパネル)
+
+          div.gallery_panel .gp__middle_single
+            |_ a.gp__img_wrap または div.gp__img_wrap
+                |_ img.gp__img
+
+          .gp__img_wrap は、<a>でも<div>でもよい。リンクを貼りたいなら<a>を使う。いずれにせよ display:block と width が設定されている。
+          下記の "jssr_" で始まるフェードイン用のクラスは、gp__img_wrap を付けた <a> か <div> に付ける。
+         -->
+         <!-- 
+          "jssr_" のプレフィクス(接頭辞)が付いたクラス名は、ScrollReveal.JS の機能を使うためのクラス。スクロールによりフェードインする機能を付加している。
+          JS に設定を追加すれば増やせる。
+          
+          定義済みのクラスは次の通りです。a.gp__img_wrap か、 div.gp__img_wrap の要素の class プロパティに付けてください。：
+
+          - jssr_common : 基本的な機能。スクロールでヴューポートに入ると、下から上にフェイドインしてくる。
+          - jssr_left  : フェイドインの方向が左から右に変わる。
+          - jssr_delay : やや遅れてフェイドインしてくる。
+        -->
+        
+        <div class="gallery_panel gp__left_aligned">
+          <a class="gp__img_wrap jssr_common jssr_left" href="#">
+            <img class="gp__img" src="https://placehold.jp/1024x768.png" alt="">
+          </a>
+          <a class="gp__img_wrap jssr_common jssr_left jssr_delay" href="#">
+            <img class="gp__img" src="https://placehold.jp/1024x768.png" alt="">
+          </a>
+        </div>
+
+        <div class="gallery_panel gp__middle_single">
+          <a class="gp__img_wrap jssr_common" href="#">
+            <img class="gp__img" src="https://placehold.jp/2048x768.png" alt="">
+          </a>
+        </div>
+
+        <div class="gallery_panel gp__right_aligned">
+          <a class="gp__img_wrap jssr_common jssr_left" href="#">
+            <img class="gp__img" src="https://placehold.jp/1024x768.png" alt="">
+          </a>
+          <a class="gp__img_wrap jssr_common jssr_left jssr_delay" href="#">
+            <img class="gp__img" src="https://placehold.jp/1024x768.png" alt="">
+          </a>
+        </div>
+        
+        <div class="gallery_panel gp__left_aligned">
+          <a class="gp__img_wrap jssr_common jssr_left" href="#">
+            <img class="gp__img" src="https://placehold.jp/1024x768.png" alt="">
+          </a>
+          <a class="gp__img_wrap jssr_common jssr_left jssr_delay" href="#">
+            <img class="gp__img" src="https://placehold.jp/1024x768.png" alt="">
+          </a>
+        </div>
+
+        <div class="gallery_panel gp__middle_single">
+          <a class="gp__img_wrap jssr_common" href="#">
+            <img class="gp__img" src="https://placehold.jp/2048x768.png" alt="">
+          </a>
+        </div>
+        
+        <div class="gallery_panel gp__right_aligned">
+          <a class="gp__img_wrap jssr_common jssr_left" href="#">
+            <img class="gp__img" src="https://placehold.jp/1024x768.png" alt="">
+          </a>
+          <a class="gp__img_wrap jssr_common jssr_left jssr_delay" href="#">
+            <img class="gp__img" src="https://placehold.jp/1024x768.png" alt="">
+          </a>
+        </div>
+
 
       </section>
+
     </div>
   </main>
 
