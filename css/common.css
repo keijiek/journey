@@ -430,29 +430,39 @@ body, header, main, footer {
 }
 .header__key_phrase > div.english_phrase {
   font-size: 3rem;
-  line-height: 3rem;
+  line-height: 5rem;
   font-weight: 600;
 }
 .header__key_phrase > div.japanese_phrase {
   font-size: 3rem;
-  line-height: 3rem;
+  line-height: 5rem;
   font-weight: 500;
 }
 
 @media screen and (max-width: 760px) {
   .header__key_phrase > div.english_phrase {
+    line-height: 3rem;
     font-size: 1.8rem;
   }
   .header__key_phrase > div.japanese_phrase {
+    line-height: 3rem;
     font-size: 1.8rem;
   }
 }
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 430px) {
   .header__key_phrase > div.english_phrase {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
   }
   .header__key_phrase > div.japanese_phrase {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
+  }
+}
+@media screen and (max-width: 370px) {
+  .header__key_phrase > div.english_phrase {
+    font-size: 1.3rem;
+  }
+  .header__key_phrase > div.japanese_phrase {
+    font-size: 1.3rem;
   }
 }
 
