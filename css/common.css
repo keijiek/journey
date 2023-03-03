@@ -66,8 +66,8 @@ body, header, main, footer {
   position: fixed;
   /* y座標は上端に固定 */
   top: 0;
-  /* x座標は、次のどちらかが適用されていればよい */
-  left: calc(1/2 * calc(100vw - 1200px));
+  /* x座標は、次のどちらかが適用されていればよいが、ハンバーガーアイコンが右端ぞろえなので、right を適用 */
+  /* left: calc(1/2 * calc(100vw - 1200px)); */
   right: calc(1/2 * calc(100vw - 1200px));
   /* 重なり優先度 */
   z-index: 10;

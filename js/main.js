@@ -150,6 +150,7 @@ class HumburgerIcon {
   }
 }
 
+
 window.addEventListener('DOMContentLoaded',()=>{
   
   /**
@@ -169,8 +170,8 @@ window.addEventListener('DOMContentLoaded',()=>{
     CLASS__HUMBURGER_ITEM : 'js_humburger_menu__item',
     CLASS__OPEN_OR_VISIBLE : 'js_open',
     CLASSES__ANIMATE : {
-      FADE_IN : 'animate__fadeInRight',
-      FADE_OUT : 'animate__fadeOutRight',
+      FADE_IN : 'animate__fadeInTopRight',
+      FADE_OUT : 'animate__fadeOutTopRight',
     },
     BREAK_POINT : 760,
   }
